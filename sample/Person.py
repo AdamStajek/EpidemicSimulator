@@ -1,6 +1,5 @@
 from random import Random
-
-from World import World
+import sample.World as World_
 
 
 class Person:
@@ -19,7 +18,7 @@ class Person:
         self._daysSinceInfection: int = -1
         self._isDead: bool = False
         self._state: int = 0
-        self._daysUntilMoving: int = int('inf')
+        self._daysUntilMoving: int = 1000
         self._currentCoordinates: tuple[int, int] = (-1, -1)
 
     @property
@@ -86,7 +85,7 @@ class Person:
     def drawDaysUntilMoving(self) -> None:
         self.daysUntilMoving = Random().randint(1, 5)
 
-    def move(self, world: World) -> None:
+    def move(self, world: World_) -> None:
         neighboursCoordinates = world.getNeighboursCoordinates(*self._currentCoordinates)
         neighboursCoordinates = self._excludeCountriesWithSickOrDeadPeople(neighboursCoordinates, world)
         if len(neighboursCoordinates) == 0:
@@ -94,7 +93,7 @@ class Person:
         newGrid = neighboursCoordinates[self._drawGridToMove(neighboursCoordinates)]
         self.currentCoordinates = newGrid
 
-    def _excludeCountriesWithSickOrDeadPeople(self, neighboursCoordinates: list[(int, int)], world: World) -> list[(int, int)]:
+    def _excludeCountriesWithSickOrDeadPeople(self, neighboursCoordinates: list[[int, int]], world: World_) -> list[[int, int]]:
         new_neighbours = []
         for coord in neighboursCoordinates:
             neighbour = world.map[coord[0]][coord[1]]
@@ -102,7 +101,7 @@ class Person:
                 new_neighbours.append(neighbour)
         return new_neighbours
 
-    def _drawGridToMove(self, neighboursCoordinates: list[(int, int)]) -> int:
+    def _drawGridToMove(self, neighboursCoordinates: list[[int, int]]) -> int:
         return Random().randint(0, len(neighboursCoordinates) - 1)
 
     def _getInfectedOrNot(self) -> None:
