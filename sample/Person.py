@@ -19,7 +19,7 @@ class Person:
         self._isDead: bool = False
         self._state: int = 0
         self._daysUntilMoving: int = 1000
-        self._currentCoordinates: tuple[int, int] = (-1, -1)
+        self._currentCoordinates: list[int, int] = [-1, -1]
 
     @property
     def daysSinceInfection(self):

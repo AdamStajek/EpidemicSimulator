@@ -58,23 +58,22 @@ class World:
     def people(self, value):
         self._people = value
 
-    def getNeighboursCoordinates(self, i: int, j: int) -> list[(int, int)]:
-        neighboursCoordinates = [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]
+    def getNeighboursCoordinates(self, i: int, j: int) -> list[[int, int]]:
+        neighboursCoordinates = [[i+1, j], [i-1, j], [i, j+1], [i, j-1]]
         self._ensureCyclicWorld(neighboursCoordinates)
         return neighboursCoordinates
 
     def _ensureCyclicWorld(self, neighboursCoordinates: list[(int, int)]) -> None:
         for coord in neighboursCoordinates:
-            match coord[0]:
-                case -1:
-                    coord[0] = len(self.map) - 1
-                case len(self.map):
-                    coord[0] = 0
-            match coord[1]:
-                case -1:
-                    coord[1] = len(self.map) - 1
-                case len(self.map):
-                    coord[1] = 0
+            if coord[0] == -1:
+                coord[0] = len(self.map) - 1
+            elif coord[0] == len(self.map):
+                coord[0] = 0
+
+            if coord[1] == -1:
+                coord[1] = len(self.map) - 1
+            elif coord[1] == len(self.map):
+                coord[1] = 0
 
 
 
