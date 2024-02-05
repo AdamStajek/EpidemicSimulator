@@ -4,7 +4,7 @@ class Grid:
         self._sick: int = 0
         self._dead: int = 0
         self._currentPopulation: int = 0
-        self._coordinates: tuple[int, int] = (x, y)
+        self._coordinates: list[int, int] = [x, y]
 
     @property
     def infected(self):

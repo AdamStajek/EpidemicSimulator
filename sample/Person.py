@@ -1,5 +1,6 @@
 from random import Random
 import sample.World as World_
+from sample.Grid import Grid
 
 
 class Person:
@@ -27,7 +28,7 @@ class Person:
 
     @daysSinceInfection.setter
     def daysSinceInfection(self, value):
-        self.daysSinceInfection = value
+        self._daysSinceInfection = value
 
     @property
     def isDead(self):
@@ -96,9 +97,9 @@ class Person:
     def _excludeCountriesWithSickOrDeadPeople(self, neighboursCoordinates: list[[int, int]], world: World_) -> list[[int, int]]:
         new_neighbours = []
         for coord in neighboursCoordinates:
-            neighbour = world.map[coord[0]][coord[1]]
+            neighbour: Grid = world.map[coord[0]][coord[1]]
             if neighbour.sick == 0 and neighbour.dead == 0:
-                new_neighbours.append(neighbour)
+                new_neighbours.append(neighbour.coordinates)
         return new_neighbours
 
     def _drawGridToMove(self, neighboursCoordinates: list[[int, int]]) -> int:

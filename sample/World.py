@@ -1,5 +1,5 @@
 from sample.Grid import Grid
-from sample.Person import Person
+import sample.Person as Person_
 
 
 class World:
@@ -7,11 +7,11 @@ class World:
         self._initialPopulation: int = initialPopulation
         self._infected: int = 0
         self._dead: int = 0
-        self._map: list = [[None] * worldSize] * worldSize
+        self._map: list = [[None for x in range(worldSize)] for y in range(worldSize)]
+        self._people: list[Person_.Person] = [Person_.Person() for x in range(initialPopulation)]
         for i in range(worldSize):
             for j in range(worldSize):
                 self._map[i][j] = Grid(i, j)
-        self._people: list[Person] = [Person()] * initialPopulation
 
     def _initializeInfected(self, PercentOfInitialInfected: int, initialPopulation: int) -> None:
         for i in range(int(PercentOfInitialInfected * initialPopulation)):
