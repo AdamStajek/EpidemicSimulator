@@ -1,6 +1,6 @@
 import pytest
-from sample.Person import Person
-from sample.World import World
+from sample.Simulator.Person import Person
+from sample.Simulator.World import World
 
 
 class TestPerson:

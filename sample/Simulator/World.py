@@ -1,5 +1,5 @@
-from sample.Grid import Grid
-import sample.Person as Person_
+from sample.Simulator.Grid import Grid
+import sample.Simulator.Person as Person_
 
 
 class World:
@@ -13,10 +13,10 @@ class World:
             for j in range(worldSize):
                 self._map[i][j] = Grid(i, j)
 
-    def _initializeInfected(self, PercentOfInitialInfected: int, initialPopulation: int) -> None:
-        for i in range(int(PercentOfInitialInfected * initialPopulation)):
+    def initializeInfected(self, percentOfInitialInfected: int) -> None:
+        for i in range(int(percentOfInitialInfected/100 * self.initialPopulation)):
             person = self._people[i]
-            person.getInfected()
+            person.getInfected() #TODO test
 
     @property
     def initialPopulation(self):

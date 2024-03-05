@@ -1,5 +1,5 @@
 import pytest
-from sample.World import World
+from sample.Simulator.World import World
 
 
 class TestWorld:

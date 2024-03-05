@@ -1,6 +1,6 @@
 from random import Random
-import sample.World as World_
-from sample.Grid import Grid
+import sample.Simulator.World as World_
+from sample.Simulator.Grid import Grid
 
 
 class Person:
