@@ -86,13 +86,14 @@ class Person:
     def drawDaysUntilMoving(self) -> None:
         self.daysUntilMoving = Random().randint(1, 5)
 
-    def move(self, world: World_) -> None:
+    def move(self, world: World_) -> bool:
         neighboursCoordinates = world.getNeighboursCoordinates(*self._currentCoordinates)
         neighboursCoordinates = self._excludeCountriesWithSickOrDeadPeople(neighboursCoordinates, world)
         if len(neighboursCoordinates) == 0:
-            return
+            return False
         newGrid = neighboursCoordinates[self._drawGridToMove(neighboursCoordinates)]
         self.currentCoordinates = newGrid
+        return True
 
     def _excludeCountriesWithSickOrDeadPeople(self, neighboursCoordinates: list[[int, int]], world: World_) -> list[[int, int]]:
         new_neighbours = []
@@ -105,7 +106,7 @@ class Person:
     def _drawGridToMove(self, neighboursCoordinates: list[[int, int]]) -> int:
         return Random().randint(0, len(neighboursCoordinates) - 1)
 
-    def _getInfectedOrNot(self) -> None:
+    def getInfectedOrNot(self) -> None:
         drewNumber = Person._drewNumberFrom0to1()
         if drewNumber < 0.4:
             self.getInfected()

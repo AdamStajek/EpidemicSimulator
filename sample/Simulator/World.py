@@ -1,3 +1,5 @@
+import random
+
 from sample.Simulator.Grid import Grid
 import sample.Simulator.Person as Person_
 
@@ -16,7 +18,8 @@ class World:
     def initializeInfected(self, percentOfInitialInfected: int) -> None:
         for i in range(int(percentOfInitialInfected/100 * self.initialPopulation)):
             person = self._people[i]
-            person.getInfected() #TODO test
+            person.getInfected()  #TODO test
+            self.infected += 1
 
     @property
     def initialPopulation(self):
@@ -74,6 +77,11 @@ class World:
                 coord[1] = len(self.map) - 1
             elif coord[1] == len(self.map):
                 coord[1] = 0
+
+    def distributePeople(self, worldSize):
+        for person in self.people:
+            i, j = random.randint(0, worldSize - 1)
+            person.currentCoordinates = i, j
 
 
 

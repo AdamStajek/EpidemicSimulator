@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 from sample.GUI import GameWindow
 from sample.GUI import RulesWindow
+from sample.Simulator.Game import Game
 
 
 class MainMenuWindow:
@@ -28,7 +29,8 @@ class MainMenuWindow:
             if initialPopulation <= 0 or worldSize <= 0 or percentOfInitialInfected <= 0:
                 raise ValueError("Incorrect parameters!")
             else:
-                GameWindow.GameWindow(window, initialPopulation, worldSize, percentOfInitialInfected).run()
+                game = Game(initialPopulation, worldSize, percentOfInitialInfected)
+                GameWindow.GameWindow(window, game).run()
 
     def setGuiParameters(self, theme, icon):
         self.setTheme(theme)
