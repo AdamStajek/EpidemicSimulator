@@ -23,14 +23,16 @@ class MainMenuWindow:
             initialPopulation = int(values['-POP-'])
             worldSize = int(values['-WSIZE-'])
             percentOfInitialInfected = int(values['-PER-'])
+            transmissionRate = float(values['-TRANSMISSIONRATE-'])
+            deadRate = float(values['-DEADRATE-'])
         except ValueError:
             raise ValueError("Incorrect parameters!") #todo error popup
-        finally:
-            if initialPopulation <= 0 or worldSize <= 0 or percentOfInitialInfected <= 0:
-                raise ValueError("Incorrect parameters!")
-            else:
-                game = Game(initialPopulation, worldSize, percentOfInitialInfected)
-                GameWindow.GameWindow(window, game).run()
+        if initialPopulation <= 0 or worldSize <= 0 or percentOfInitialInfected <= 0 \
+                or not (0 < deadRate <= 1) or not (0 < transmissionRate <= 1):
+            raise ValueError("Incorrect parameters!")
+        else:
+            game = Game(initialPopulation, worldSize, percentOfInitialInfected, transmissionRate, deadRate)
+            GameWindow.GameWindow(window, game).run()
 
     def setGuiParameters(self, theme, icon):
         self.setTheme(theme)
@@ -50,9 +52,12 @@ class MainMenuWindow:
             [sg.Text("Initial population:", size=20, font=('Helvetica', 14)), sg.Input(key='-POP-')],
             [sg.Text("World size:", size=20, font=('Helvetica', 14)), sg.Input(key='-WSIZE-')],
             [sg.Text("Percent of initial infected:", size=20, font=('Helvetica', 14)), sg.Input(key='-PER-')],
+            [sg.Text("Transmission rate:", size=20, font=('Helvetica', 14)), sg.Input(key='-TRANSMISSIONRATE-')],
+            [sg.Text("Death rate:", size=20, font=('Helvetica', 14)), sg.Input(key='-DEADRATE-')],
             [sg.Button('Rules', size=(10, 2), font=('Helvetica', 14), key='-RULES-'),
              sg.Button('Start Game', size=(10, 2), font=('Helvetica', 14), key='-START-'),
-             sg.Button('Exit', size=(10, 2), font=('Helvetica', 14), key='-EXIT-')]
+             sg.Button('Exit', size=(10, 2), font=('Helvetica', 14), key='-EXIT-')],
+
         ]
 
     def setWindow(self, layout):

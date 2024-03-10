@@ -2,36 +2,23 @@ from sample.Simulator.World import World
 
 
 class Game:
-    def __init__(self, initialPopulation, worldSize, percentOfInitialInfected):
-        self._initialPopulation = initialPopulation
-        self._worldSize = worldSize
-        self._percentOfInitialInfected = percentOfInitialInfected
-        self._day = 0
-        self._world: World = None
+    """
+    A class which instance represents the game.
 
-    @property
-    def initialPopulation(self):
-        return self._initialPopulation
-
-    @initialPopulation.setter
-    def initialPopulation(self, value):
-        self._initialPopulation = value
-
-    @property
-    def worldSize(self):
-        return self._worldSize
-
-    @worldSize.setter
-    def worldSize(self, value):
-        self._worldSize = value
-
-    @property
-    def percentOfInitialInfected(self):
-        return self._percentOfInitialInfected
-
-    @percentOfInitialInfected.setter
-    def percentOfInitialInfected(self, value):
-        self._percentOfInitialInfected = value
+    Attributes:
+        day - current day in the game
+        world - the world of the game
+        infectedHistory - history of infections where infectedHistory[i] is number of infected at day i
+        deadHistory - history of dead where deadHistory[i] is the number of dead at day i
+        currentPopulationHistory - history of current population, analogical to dead and infected
+    """
+    def __init__(self, initialPopulation: int, worldSize: int, percentOfInitialInfected: int, transmissionRate: float,
+                 deathRate: float):
+        self._day: int = 0
+        self._world: World = World(initialPopulation, worldSize, percentOfInitialInfected, transmissionRate, deathRate)
+        self.infectedHistory: list[int] = []
+        self.currentPopulationHistory: list[int] = []
+        self.deadHistory: list[int] = []
 
     @property
     def world(self):
@@ -49,22 +36,39 @@ class Game:
     def day(self, value):
         self._day = value
 
-    def startGame(self):
-        self.world = World(self.initialPopulation, self.worldSize)
-        self.world.initializeInfected(self.percentOfInitialInfected)
-        self.world.distributePeople(self.worldSize)
-        for person in self.world.people:
-            person.drawDaysUntilMoving()
+    def startGame(self) -> None:
+        """
+        Stars the game.
+        :return: None
+        """
+        self.world.distributePeople()
+        self.world.initializeInfected()
+        self.world.setDaysUntilMoving()
 
-    def proceedDay(self):
+    def proceedDay(self) -> None:
+        """
+        Proceeds one day in the game
+        :return: None
+        """
         for person in self.world.people:
+            person.evaluateState(self.world)
             if person.daysUntilMoving == 0:
                 didMove = person.move(self.world)
-                if didMove:
-                    person.getInfectedOrNot()
+                person.drawDaysUntilMoving()
+                i, j = person.currentCoordinates
+                if didMove and self.world.map[i][j].infected > 0:
+                    person.DecideAboutGettingInfected(self.world)
+            if not person.isHealthy():
+                person.daysSinceInfection += 1
+            person.daysUntilMoving -= 1
+        self.updateDayStatistics()
+
+    def updateDayStatistics(self) -> None:
+        """
+        Updates statistics of a day.
+        :return: None
+        """
         self.day += 1
-
-
-
-
-
+        self.infectedHistory.append(self.world.infected)
+        self.deadHistory.append(self.world.dead)
+        self.currentPopulationHistory.append(self.world.currentPopulation)

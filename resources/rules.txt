@@ -8,11 +8,11 @@ Simulate the disease according to the following rules:
 
 Each country, except those at the edge of the world, has 4 neighbors at the north, south, west, east side. Countries are connected to their neighboring countries. A person can travel from a country to a neighboring country. A direct travel from a country to another is otherwise not possible.
 
-At the beginning, there are P people in the world. As an initial condition, X% of them are infected with the virus (but they are not sick yet). Initially people are assigned to countries uniformly at random.
+At the beginning, there are P people in the world. As an initial condition, X% of them are infected with the virus (each person is initially randomly infected from 0 to 10 days at day 0). Initially people are assigned to countries uniformly at random.
 
 After 6 days of becoming infected, a person becomes sick and is therefore visibly infectious (i.e. other people can understand that she is unhealthy).
 
-After 14 days of becoming infected, a person dies with a probability of 25%. Dead people do not move, but stay visibly infectious.
+After 14 days of becoming infected, a person dies with a probability of DR. Dead people do not move, but stay visibly infectious.
 
 After 16 days of becoming infected, a person becomes immune and is no longer visibly infectious, but remains infectious.
 
@@ -22,9 +22,16 @@ Each step of the simulation corresponds to one simulated day.
 
 At the beginning of the simulation, each person decides when to move within the next 5 days. More precisely, she picks the moving day uniformly at random among the next 5 days. After moving, she repeats the same process. For example, if on day 0 the person decides to move after 3 days, she will move from her current country on day 3. After that move, she will make another decision: for example, she may decide to move after 5 days this time, so her next move will be on day 8, etc.
 
-On the day of each move, a person will pick one of the countries available to her with equal probability and will move to it. The set of available countries is defined as the neighboring countries that contain no visibly infectious people. A person avoids countries with sick or dead (visibly infectious) people. This means that if a person is surrounded by visibly infectious people, she does not change position; however, she might change position the next time she tries to move (for example, if a visibly infectious person moved out of one of the neighbouring countries or became immune).
+On the day of each move, a person will pick one of the countries available to her with equal probability and will move to it. The set of available countries is defined as the neighboring countries that contain no visibly infectious people. A person avoids countries with sick (visibly infectious) people. This means that if a person is surrounded by visibly infectious people, she does not change position; however, she might change position the next time she tries to move (for example, if a visibly infectious person moved out of one of the neighbouring countries or became immune).
 
-When a person moves into a country with an infectious person she might get infected according to the transmissibility rate of 40%, unless the person is already infected or immune. A person cannot get infected between moves (this is slightly unrealistic, but will simplify your implementation).
+When a person moves into a country with an infectious person she might get infected according to the transmissibility rate of TR, unless the person is already infected or immune. A person cannot get infected between moves (this is slightly unrealistic, but will simplify your implementation).
 
 User Interface
-The P, X, and N are parameters of the simulation. You must display the number of healthy, infected, sick, and dead people at the end of each day. These numbers should be displayed for each country, plus the whole world.
+The P, X, N, TR and DR are parameters of the simulation.
+P - initial population
+X - % of initial infected
+N - world size
+TR - transmission rate
+DR - dead rate
+
+You must display the number of healthy, infected, sick, and dead people at the end of each day. These numbers should be displayed for each country, plus the whole world.

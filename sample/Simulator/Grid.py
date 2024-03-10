@@ -1,5 +1,19 @@
 class Grid:
-    def __init__(self, x, y):
+    """
+    A class which represents atomic part of the world.
+
+    Attributes:
+        infected - number of infected people in the grid
+        sick - number of sick people in the grid
+        dead - number of dead people in the grid
+        currentPopulation - number of people in the grid
+        coordinates - coordinates of the grid on the map
+    """
+    def __init__(self, x: int, y: int):
+        """
+        :param x: x coordinate of the grid on the map
+        :param y: y coordinate of the grid on the map
+        """
         self._infected: int = 0
         self._sick: int = 0
         self._dead: int = 0
