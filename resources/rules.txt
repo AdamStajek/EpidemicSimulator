@@ -28,10 +28,10 @@ When a person moves into a country with an infectious person she might get infec
 
 User Interface
 The P, X, N, TR and DR are parameters of the simulation.
-P - initial population
-X - % of initial infected
-N - world size
-TR - transmission rate
-DR - dead rate
+P - initial population -
+X - % of initial infected - possible values [0, 100]
+N - world size - possible values [1, 70]
+TR - transmission rate - possible values (0, 1]
+DR - dead rate - possible values (0, 1]
 
 You must display the number of healthy, infected, sick, and dead people at the end of each day. These numbers should be displayed for each country, plus the whole world.

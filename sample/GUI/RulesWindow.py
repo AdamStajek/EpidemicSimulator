@@ -11,7 +11,15 @@ class RulesWindow:
         Constructs rules window.
         :param window: pysimplegui main window
         """
-        self.window: sg.Window = window
+        self._window: sg.Window = window
+
+    @property
+    def window(self):
+        return self._window
+
+    @window.setter
+    def window(self, value):
+        self._window = value
 
     def run(self) -> None:
         """

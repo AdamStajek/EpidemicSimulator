@@ -15,10 +15,38 @@ class PlotWindow:
         :param x: array of values for the x axis
         :param y: array of values for the y axis
         """
-        self.name: str = name
-        self.yName: str = name.split(' ')[0]
-        self.x: list[int] = x
-        self.y: list[int] = y
+        self._name: str = name
+        self._yName: str = name.split(' ')[0]
+        self._x: list[int] = x
+        self._y: list[int] = y
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @name.setter
+    def name(self, value: str):
+        self._name = value
+
+    @property
+    def yName(self) -> str:
+        return self._yName
+
+    @property
+    def x(self) -> list[int]:
+        return self._x
+
+    @x.setter
+    def x(self, value: list[int]):
+        self._x = value
+
+    @property
+    def y(self) -> list[int]:
+        return self._y
+
+    @y.setter
+    def y(self, value: list[int]):
+        self._y = value
 
     def run(self) -> None:
         """
