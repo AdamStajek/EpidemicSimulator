@@ -122,7 +122,7 @@ class World:
         """
         for i in range(int(self.percentOfInitialInfected / 100 * self.initialPopulation)):
             person = self._people[i]
-            person.getInfected(self)  # TODO test
+            person.getInfected(self)
             person.daysSinceInfection = self.drawDaysSinceInfection()
             if person.daysSinceInfection >= 6:
                 person.getSick(self)
