@@ -52,14 +52,22 @@ class MainMenuWindow:
             transmissionRate = float(values['-TRANSMISSIONRATE-'])
             deadRate = float(values['-DEADRATE-'])
         except ValueError:
-            sg.popup("Incorrect parameters!", font=('Helvetica', 16))
-            window.close()
-            self.run()
+            self._handleIncorrectParameters(window)
             return False
         if initialPopulation <= 0 or not (0 <= worldSize <= 70) or not (0 <= percentOfInitialInfected <= 100) \
                 or not (0 < deadRate <= 1) or not (0 < transmissionRate <= 1):
-            raise ValueError("Incorrect parameters!")
+            self._handleIncorrectParameters(window)
         return initialPopulation, worldSize, percentOfInitialInfected, transmissionRate, deadRate
+
+    def _handleIncorrectParameters(self, window: sg.Window):
+        """
+        Shows pop up if set parameters are incorrect.
+        :param window: Main window of the application
+        :return: None
+        """
+        sg.popup("Incorrect parameters!", font=('Helvetica', 16))
+        window.close()
+        self.run()
 
     def setGuiParameters(self, theme: str, icon: str) -> None:
         """

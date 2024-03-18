@@ -53,7 +53,7 @@ class RulesWindow:
         :return: rules as a string or "Error!" string if the file does not exist
         """
         try:
-            with open('../resources/rues.txt') as f:
+            with open('../resources/rules.txt') as f:
                 contents = f.read()
                 return contents
         except FileNotFoundError:
