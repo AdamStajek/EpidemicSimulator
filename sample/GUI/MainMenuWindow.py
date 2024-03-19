@@ -14,7 +14,7 @@ class MainMenuWindow:
         Runs main menu window.
         :return: None
         """
-        self.setGuiParameters('darkgreen', '../resources/skull.ico')
+        self.setGuiParameters('darkgreen', 'resources/skull.ico')
         layout = self.setLayout()
         window = self.setWindow(layout)
         while True:
@@ -102,7 +102,7 @@ class MainMenuWindow:
         """
         return [
             [sg.Text('Epidemic Simulator', font=('Helvetica', 40), justification='center', key='-TITLE-')],
-            [sg.Image('../resources/main_menu.png', subsample=2)],
+            [sg.Image('resources/main_menu.png', subsample=2)],
             [sg.Text("Enter parameters of the game:", font=('Helvetica', 14))],
             [sg.Text("Initial population:", size=20, font=('Helvetica', 14)), sg.Input(key='-POP-')],
             [sg.Text("World size:", size=20, font=('Helvetica', 14)), sg.Input(key='-WSIZE-')],
