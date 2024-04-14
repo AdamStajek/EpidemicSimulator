@@ -8,7 +8,7 @@ A comprehensive epidemic simulator that allows its user to simulate the spread o
 **Modules used**:
 - **PySimpleGUI** is used to create the GUI
 
-### Instalation
+### Installation
 ``` bash
 pip install pysimplegui
 ```
